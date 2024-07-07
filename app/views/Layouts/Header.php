@@ -1,81 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Sidebar with Tailwind CSS</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="../../../public/assets/js/checkToken.js" rel="stylesheet"></script>
     <script src="../../../public/assets/js/contrains.js" rel="stylesheet"></script>
-    <link href="../../../public/assets/css/style.css" rel="stylesheet"/>
+    <script src="../../../public/assets/js/axios.js" rel="stylesheet"></script>
+    <link href="../../../public/assets/css/style.css" rel="stylesheet" />
+    <link href="../../../public/assets/css/base.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="bg-gray-100">
-    <div class="flex h-screen bg-gray-200">
-        <div class="w-64 bg-menu text-white hidden md:block">
-            <div class="p-2">
-                <h1 class="text-2xl font-bold">How long</h1>
-                <ul class="mt-4">
-                    <li class="p-3">
-                        <a href="/" data-active-url="/" class="flex justify-content-center gap-3">
-                            <svg height="24px" width="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path><path d="M15 18H9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path></g></svg>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="p-3">
-                        <a href="/campaigns" data-active-url="/campaigns,/campaigns/adsets,/campaigns/ads" class="flex justify-content-center gap-3">
-                            <svg fill="#ffffff" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M460.8,32.337H210.189v-2.695C210.189,13.298,196.891,0,180.547,0H94.316C77.972,0,64.674,13.298,64.674,29.642v2.695 H51.2c-28.231,0-51.2,22.969-51.2,51.2v21.558v301.811c0,28.231,22.969,51.2,51.2,51.2h185.937v24.253 c0,16.344,13.298,29.642,29.642,29.642h118.568c16.344,0,29.642-13.298,29.642-29.642v-24.253H460.8 c28.231,0,51.2-22.969,51.2-51.2V105.095V83.537C512,55.306,489.031,32.337,460.8,32.337z M80.842,29.642 c0-7.43,6.044-13.474,13.474-13.474h86.232c7.43,0,13.474,6.044,13.474,13.474v67.368H80.842V29.642z M16.168,83.537 c0-19.317,15.715-35.032,35.032-35.032h13.474v48.505H16.168V83.537z M237.137,267.538v120.504h-153.6 c-7.43,0-13.474-6.044-13.474-13.474V191.326c0-7.43,6.044-13.474,13.474-13.474h207.495v37.891l-40.695,27.13 C242.071,248.384,237.137,257.604,237.137,267.538z M398.821,482.358c0,7.43-6.044,13.474-13.474,13.474H266.779 c-7.43,0-13.474-6.044-13.474-13.474v-214.82c0-4.515,2.243-8.706,6-11.211l31.727-21.15v4.655c0,7.396,2.31,14.259,6.238,19.921 c-0.55,2.254-0.848,4.606-0.848,7.027c0,16.344,13.298,29.642,29.642,29.642s29.642-13.298,29.642-29.642 s-13.298-29.642-29.642-29.642c-6.984,0-13.408,2.434-18.479,6.49c-0.251-1.226-0.384-2.495-0.384-3.795v-15.433l11.39-7.594 c2.27-1.513,4.871-2.27,7.473-2.27c2.601,0,5.204,0.757,7.474,2.27l59.284,39.522c3.756,2.505,6,6.696,6,11.211V482.358z M326.063,258.695c-3.151,0-6.117-0.786-8.731-2.158c2.353-2.01,5.4-3.232,8.731-3.232c7.43,0,13.474,6.044,13.474,13.474 s-6.044,13.474-13.474,13.474c-5.297,0-9.877-3.08-12.077-7.536c3.767,1.387,7.834,2.146,12.077,2.146 c4.466,0,8.084-3.618,8.084-8.084C334.147,262.313,330.529,258.695,326.063,258.695z M401.79,242.873l-59.283-39.522 c-9.99-6.661-22.898-6.66-32.885,0l-2.421,1.615v-27.113h121.263c7.43,0,13.474,6.044,13.474,13.474v183.242 c0,7.43-6.044,13.474-13.474,13.474h-13.474V267.538C414.989,257.604,410.055,248.384,401.79,242.873z M309.046,161.684 c3.034-6.362,9.511-10.779,17.017-10.779s13.981,4.417,17.017,10.779H309.046z M495.832,406.905 c0,19.317-15.715,35.032-35.032,35.032h-45.811v-37.726h13.474c16.344,0,29.642-13.298,29.642-29.642V191.326 c0-16.344-13.298-29.642-29.642-29.642h-68.32c-3.661-15.43-17.546-26.947-34.08-26.947s-30.419,11.517-34.08,26.947H83.537 c-16.344,0-29.642,13.298-29.642,29.642v183.242c0,16.344,13.298,29.642,29.642,29.642h153.6v37.726H51.2 c-19.317,0-35.032-15.715-35.032-35.032V113.179h479.663V406.905z M495.832,97.011H210.189V48.505H460.8 c19.317,0,35.032,15.715,35.032,35.032V97.011z"></path> <path d="M417.684,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.619,8.084,8.084,8.084s8.084-3.618,8.084-8.084 v-1.078C425.768,67.753,422.15,64.135,417.684,64.135z"></path> <path d="M385.347,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.618,8.084,8.084,8.084 c4.466,0,8.084-3.618,8.084-8.084v-1.078C393.432,67.753,389.813,64.135,385.347,64.135z"></path> <path d="M450.021,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.618,8.084,8.084,8.084 c4.466,0,8.084-3.618,8.084-8.084v-1.078C458.105,67.753,454.487,64.135,450.021,64.135z"></path> </g> </g> </g> </g></svg>
-                            <span>Campaign</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="bg-blue-900 text-white md:hidden p-4 flex justify-flex-end items-baseline">
-            <div class="text-center">
-                <button id="menu-btn" class="focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-                <ul class="mt-4">
-                    <li class="py-2">
-                        <a href="#">
-                            <svg height="24px" width="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M22 12.2039V13.725C22 17.6258 22 19.5763 20.8284 20.7881C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.7881C2 19.5763 2 17.6258 2 13.725V12.2039C2 9.91549 2 8.77128 2.5192 7.82274C3.0384 6.87421 3.98695 6.28551 5.88403 5.10813L7.88403 3.86687C9.88939 2.62229 10.8921 2 12 2C13.1079 2 14.1106 2.62229 16.116 3.86687L18.116 5.10812C20.0131 6.28551 20.9616 6.87421 21.4808 7.82274" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path><path d="M15 18H9" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path></g></svg>
-                        </a>
-                    </li>
-                    <li class="py-2">
-                        <a href="#">
-                            <svg fill="#ffffff" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M460.8,32.337H210.189v-2.695C210.189,13.298,196.891,0,180.547,0H94.316C77.972,0,64.674,13.298,64.674,29.642v2.695 H51.2c-28.231,0-51.2,22.969-51.2,51.2v21.558v301.811c0,28.231,22.969,51.2,51.2,51.2h185.937v24.253 c0,16.344,13.298,29.642,29.642,29.642h118.568c16.344,0,29.642-13.298,29.642-29.642v-24.253H460.8 c28.231,0,51.2-22.969,51.2-51.2V105.095V83.537C512,55.306,489.031,32.337,460.8,32.337z M80.842,29.642 c0-7.43,6.044-13.474,13.474-13.474h86.232c7.43,0,13.474,6.044,13.474,13.474v67.368H80.842V29.642z M16.168,83.537 c0-19.317,15.715-35.032,35.032-35.032h13.474v48.505H16.168V83.537z M237.137,267.538v120.504h-153.6 c-7.43,0-13.474-6.044-13.474-13.474V191.326c0-7.43,6.044-13.474,13.474-13.474h207.495v37.891l-40.695,27.13 C242.071,248.384,237.137,257.604,237.137,267.538z M398.821,482.358c0,7.43-6.044,13.474-13.474,13.474H266.779 c-7.43,0-13.474-6.044-13.474-13.474v-214.82c0-4.515,2.243-8.706,6-11.211l31.727-21.15v4.655c0,7.396,2.31,14.259,6.238,19.921 c-0.55,2.254-0.848,4.606-0.848,7.027c0,16.344,13.298,29.642,29.642,29.642s29.642-13.298,29.642-29.642 s-13.298-29.642-29.642-29.642c-6.984,0-13.408,2.434-18.479,6.49c-0.251-1.226-0.384-2.495-0.384-3.795v-15.433l11.39-7.594 c2.27-1.513,4.871-2.27,7.473-2.27c2.601,0,5.204,0.757,7.474,2.27l59.284,39.522c3.756,2.505,6,6.696,6,11.211V482.358z M326.063,258.695c-3.151,0-6.117-0.786-8.731-2.158c2.353-2.01,5.4-3.232,8.731-3.232c7.43,0,13.474,6.044,13.474,13.474 s-6.044,13.474-13.474,13.474c-5.297,0-9.877-3.08-12.077-7.536c3.767,1.387,7.834,2.146,12.077,2.146 c4.466,0,8.084-3.618,8.084-8.084C334.147,262.313,330.529,258.695,326.063,258.695z M401.79,242.873l-59.283-39.522 c-9.99-6.661-22.898-6.66-32.885,0l-2.421,1.615v-27.113h121.263c7.43,0,13.474,6.044,13.474,13.474v183.242 c0,7.43-6.044,13.474-13.474,13.474h-13.474V267.538C414.989,257.604,410.055,248.384,401.79,242.873z M309.046,161.684 c3.034-6.362,9.511-10.779,17.017-10.779s13.981,4.417,17.017,10.779H309.046z M495.832,406.905 c0,19.317-15.715,35.032-35.032,35.032h-45.811v-37.726h13.474c16.344,0,29.642-13.298,29.642-29.642V191.326 c0-16.344-13.298-29.642-29.642-29.642h-68.32c-3.661-15.43-17.546-26.947-34.08-26.947s-30.419,11.517-34.08,26.947H83.537 c-16.344,0-29.642,13.298-29.642,29.642v183.242c0,16.344,13.298,29.642,29.642,29.642h153.6v37.726H51.2 c-19.317,0-35.032-15.715-35.032-35.032V113.179h479.663V406.905z M495.832,97.011H210.189V48.505H460.8 c19.317,0,35.032,15.715,35.032,35.032V97.011z"></path> <path d="M417.684,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.619,8.084,8.084,8.084s8.084-3.618,8.084-8.084 v-1.078C425.768,67.753,422.15,64.135,417.684,64.135z"></path> <path d="M385.347,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.618,8.084,8.084,8.084 c4.466,0,8.084-3.618,8.084-8.084v-1.078C393.432,67.753,389.813,64.135,385.347,64.135z"></path> <path d="M450.021,64.135c-4.466,0-8.084,3.618-8.084,8.084v1.078c0,4.466,3.618,8.084,8.084,8.084 c4.466,0,8.084-3.618,8.084-8.084v-1.078C458.105,67.753,454.487,64.135,450.021,64.135z"></path> </g> </g> </g> </g></svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="mobile-sidebar" class="fixed inset-0 bg-blue-900 text-white z-50 transform -translate-x-full transition-transform duration-300 md:hidden">
-            <div class="p-4 flex justify-between items-center">
-                <h1 class="text-2xl font-bold">Sidebar</h1>
-                <button id="close-btn" class="focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-            <ul class="mt-4">
-                <li class="py-2 px-4 hover:bg-blue-700"><a href="#">Dashboard</a></li>
-                <li class="py-2 px-4 hover:bg-blue-700"><a href="#">Profile</a></li>
-            </ul>
-        </div>
-        <script>
-            const menuBtn = document.getElementById('menu-btn');
-            const closeBtn = document.getElementById('close-btn');
-            const mobileSidebar = document.getElementById('mobile-sidebar');
 
-            menuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.remove('-translate-x-full');
-            });
-
-            closeBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('-translate-x-full');
-            });
-        </script>
+<body>
+    <div class="sidebar close">
+        <div class="logo-details">
+            <i class='bx bxl-c-plus-plus'></i>
+            <span class="logo_name">Responsive</span>
+        </div>
+        <ul class="nav-links">
+            <li class="nav-link">
+                <a href="/" data-active-url="/">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Trang Chủ</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/" data-active-url="/">Trang Chủ</a></li>
+                </ul>
+            </li>
+            <li class="nav-link">
+                <a href="/campaigns" data-active-url="/campaigns,/campaigns/adsets,/campaigns/ads">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="link_name">Chiến dịch</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/campaigns" data-active-url="/campaigns,/campaigns/adsets,/campaigns/ads">Chiến dịch</a></li>
+                </ul>
+            </li>
+            <!-- <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Category</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Category</a></li>
+                    <li><a href="#">HTML & CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                    <li><a href="#">PHP & MySQL</a></li>
+                </ul>
+            </li> -->
+            <li>
+                <a href="/settings" data-active-url="/settings">
+                    <i class='bx bx-cog'></i>
+                    <span class="link_name">Setting</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/settings" data-active-url="/settings">Setting</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <!-- <span class="text">Dashboard</span> -->
+        </div>
+    </section>

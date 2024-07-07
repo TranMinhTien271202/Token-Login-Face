@@ -23,4 +23,12 @@ class Controller {
         header('Location: ' . $route, true, $status);
         exit;
     }
+    public function back($status = 302) {
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $previousUrl = $_SERVER['HTTP_REFERER'];
+            $this->redirect($previousUrl, $status);
+        } else {
+            $this->redirect('/');
+        }
+    }
 }

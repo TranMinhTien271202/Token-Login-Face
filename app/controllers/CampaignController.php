@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Http\Request;
 use Core\Controller;
 
 class CampaignController extends Controller
@@ -14,8 +15,8 @@ class CampaignController extends Controller
 
     public function CP_CampaignCreate()
     { 
-        $post_json = file_get_contents('php://input');
-        $data = json_decode($post_json, true);
+        $request = new Request();
+        $data = $request->all();
         $name = $data['data']['name'] ?? null;
         $purchaseMethod = $data['data']['purchase_method'] ?? null;
         $special_ad_categories = [];
@@ -43,14 +44,18 @@ class CampaignController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_json);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
-
-        if(curl_errno($ch)) {
-            echo 'Error:' . curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (curl_errno($ch)) {
+            $error_message = 'Error:' . curl_error($ch);
+            curl_close($ch);
+            $this->Response(['error' => $error_message], 400);
         }
         curl_close($ch);
-        echo $response;
-        var_dump($response);
-        die();
+        if ($httpCode == 200) {
+            $this->Response(json_decode($response, true), 200);
+        } else {
+            $this->Response(['error' => 'Campaign creation failed'], 400);
+        }
     }
 
     public function CP_adset()
