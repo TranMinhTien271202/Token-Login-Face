@@ -3,8 +3,10 @@
 use App\Controllers\CampaignController;
 use App\Controllers\ExampleController;
 use App\Controllers\EnvController;
+use App\Controllers\ErrorController;
 use App\Controllers\FaceBookController;
 use Core\Router;
+use Core\Controller;
 
 $router = new Router();
 // Define your routes
@@ -61,5 +63,10 @@ $router->get('/json', function() {
     $controller->json();
 });
 
+// 404
+$router->get('/errors/404', function() {
+    $controller = new ErrorController();
+    $controller->ER_index();
+});
 // Add more routes here
 $router->dispatch();

@@ -23,11 +23,49 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebar.classList.toggle("close");
   });
 
-  // call api
-  TOKEN = getCookie("token_campaign");
+  // append độ tổi
   const currentUrl = window.location.href;
   if (currentUrl.includes("campaigns/adsets")) {
-    axios.get("https://graph.facebook.com/v20.0/act_431786637562827/campaigns", {
+    const min_age = document.getElementById("min_age");
+    const max_age = document.getElementById("max_age");
+    for (let i = 18; i <= 65; i++) {
+      const minOption = document.createElement("option");
+      minOption.value = i;
+      minOption.textContent = i;
+      min_age.appendChild(minOption);
+
+      // Create option for max_age
+      const maxOption = document.createElement("option");
+      maxOption.value = i;
+      maxOption.textContent = i;
+      if (i === 65) {
+        maxOption.textContent += "+";
+      }
+      max_age.appendChild(maxOption);
+    }
+
+    // select budget
+    const budgetSelect = document.getElementById("budget");
+    const dailyBudgetInput = document.getElementById("daily-budget-input");
+    const lifetimeBudgetInput = document.getElementById(
+      "lifetime-budget-input"
+    );
+    function toggleBudgetInputs() {
+      if (budgetSelect.value === "LIFT_TIME") {
+        dailyBudgetInput.style.display = "none";
+        lifetimeBudgetInput.style.display = "block";
+      } else {
+        dailyBudgetInput.style.display = "block";
+        lifetimeBudgetInput.style.display = "none";
+      }
+    }
+    toggleBudgetInputs();
+    budgetSelect.addEventListener("change", toggleBudgetInputs);
+
+    // call api
+    TOKEN = getCookie("token_campaign");
+    axios
+      .get("https://graph.facebook.com/v20.0/act_431786637562827/campaigns", {
         params: {
           fields: "id,name",
         },
@@ -65,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
       input.classList.remove("has-content");
     }
     input.addEventListener("input", (e) => {
-      console.log("Input event triggered on:", e.target);
       if (e.target.value.trim() !== "") {
         e.target.classList.add("has-content");
       } else {
@@ -100,4 +137,36 @@ function createCampaign(event) {
     .catch(function (error) {
       alert("Có lỗi xảy ra");
     });
+}
+
+function createCampaignAdset(event) {
+  event.preventDefault();
+  console.log(1);
+  const name = document.getElementById("name").value;
+  const billing_event = document.getElementById("billing_event").value;
+  const status = document.getElementById("status").value;
+  const lift_time_budget = document.getElementById("lift_time_budget").value;
+  const daily_budget = document.getElementById("daily_budget").value;
+  const gender = document.getElementById("gender").value;
+  const max_age = document.getElementById("max_age").value;
+  const min_age = document.getElementById("min_age").value;
+  const start_time = document.getElementById("start_time").value;
+  // const data = {
+  //   name,
+  //   purchase_method: purchaseMethod,
+  //   status,
+  //   objective,
+  // };
+  // axios
+  //   .post("/campaigns/create", {
+  //     data: data,
+  //   })
+  //   .then(function (response) {
+  //     if (response.status == 200) {
+  //       alert("Thêm thành công");
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     alert("Có lỗi xảy ra");
+  //   });
 }

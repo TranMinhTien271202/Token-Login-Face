@@ -24,6 +24,7 @@
   </div>
 </div>
 </div>
+</div>
 </body>
 <script>
   document.addEventListener('DOMContentLoaded', function() {

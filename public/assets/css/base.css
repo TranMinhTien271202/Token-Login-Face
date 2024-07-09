@@ -18,3 +18,11 @@
 .m-0-20 {
     margin: 0 20px;
 }
+
+/* display */
+.d-flex {
+    display: flex;
+}
+.d-hidden {
+    display: none;
+}
