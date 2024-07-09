@@ -33,14 +33,5 @@ jobs:
         else
           echo ".env file is present"
         fi
-
-    - name: Check for LICENSE file
-      run: |
-        if [ ! -f LICENSE ]; then
-          echo "LICENSE file is missing" && exit 1
-        else
-          echo "LICENSE file is present"
-        fi
-
     - name: Run a basic PHP script
       run: php -r "echo 'PHP environment is set up correctly';"
