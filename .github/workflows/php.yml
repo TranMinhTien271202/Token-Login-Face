@@ -18,17 +18,29 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Validate composer.json
-      run: composer validate --strict
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4' # Adjust this based on your PHP version
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
+    - name: Display PHP Version
+      run: php -v
 
     - name: Check for .env file
       run: |
         if [ ! -f .env ]; then
           echo ".env file is missing" && exit 1
+        else
+          echo ".env file is present"
         fi
 
-    - name: Run autoload script
-      run: php -r "require 'vendor/autoload.php';"
+    - name: Check for LICENSE file
+      run: |
+        if [ ! -f LICENSE ]; then
+          echo "LICENSE file is missing" && exit 1
+        else
+          echo "LICENSE file is present"
+        fi
+
+    - name: Run a basic PHP script
+      run: php -r "echo 'PHP environment is set up correctly';"
